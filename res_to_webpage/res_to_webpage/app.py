@@ -1,7 +1,7 @@
 import os
 import subprocess
 import streamlit as st
-from dotenv import load_dotenv
+
 
 # Force install openai if missing
 try:
