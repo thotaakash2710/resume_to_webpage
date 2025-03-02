@@ -1,17 +1,22 @@
 import os
-import openai
+import subprocess
 import streamlit as st
-import pdfplumber
 from dotenv import load_dotenv
-import docx
 
+# Force install openai if missing
+try:
+    import openai
+except ModuleNotFoundError:
+    st.warning("⚠️ 'openai' package not found. Installing now...")
+    subprocess.run(["pip", "install", "openai"])
+    import openai  # Try importing again after installation
 
-load_dotenv()
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-
+# Load OpenAI API Key from Streamlit Secrets
+OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
 if not OPENAI_API_KEY:
-    st.error("OpenAI API key is missing. Please set it in your environment variables.")
+    st.error("OpenAI API key is missing. Please add it to Streamlit Secrets.")
     st.stop()
+
 
 openai.api_key = OPENAI_API_KEY
 
