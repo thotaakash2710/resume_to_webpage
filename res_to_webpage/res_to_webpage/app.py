@@ -2,23 +2,23 @@ import os
 import subprocess
 import streamlit as st
 
-
-# Force install openai if missing
+# Force install openai in the correct environment
 try:
     import openai
 except ModuleNotFoundError:
     st.warning("⚠️ 'openai' package not found. Installing now...")
-    subprocess.run(["pip", "install", "openai"])
+    subprocess.run(["pip", "install", "--no-cache-dir", "openai"], check=True)
     import openai  # Try importing again after installation
 
 # Load OpenAI API Key from Streamlit Secrets
-OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
+OPENAI_API_KEY = st.secrets.get("OPENAI_API_KEY")
+
 if not OPENAI_API_KEY:
-    st.error("OpenAI API key is missing. Please add it to Streamlit Secrets.")
+    st.error("❌ OpenAI API key is missing. Please add it to Streamlit Secrets.")
     st.stop()
 
-
 openai.api_key = OPENAI_API_KEY
+
 
 def extract_text_from_pdf(file):
     text = ""
