@@ -28,7 +28,7 @@ MarkupSafe==3.0.2
 mdurl==0.1.2
 narwhals==1.28.0
 numpy==2.2.3
-openai==1.65.2
+openai
 packaging==24.2
 pandas==2.2.3
 pdfminer.six==20231228
